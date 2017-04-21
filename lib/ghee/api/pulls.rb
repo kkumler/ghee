@@ -17,18 +17,33 @@ class Ghee
           def commits
             connection.get("#{path_prefix}/commits").body
           end
-          
+
           def files
             connection.get("#{path_prefix}/files").body
           end
-          
+
           def merge?
             connection.get("#{path_prefix}/merge").status == 204
           end
-          
+
           def merge!(message=nil)
             params = message ? {:commit_message=>message} : {}
             connection.put("#{path_prefix}/merge", params).body
+          end
+
+          def reviews(id = nil)
+            prefix = id ? "#{path_prefix}/reviews/#{id}" : "#{path_prefix}/reviews"
+            Ghee::API::Repos::Pulls::Reviews::Proxy.new(connection, prefix)
+          end
+        end
+
+        module Reviews
+          class Proxy < ::Ghee::ResourceProxy
+            accept_header 'application/vnd.github.black-cat-preview+json'
+
+            undef_method :create
+            undef_method :destroy
+            undef_method :patch
           end
         end
       end

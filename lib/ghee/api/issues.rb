@@ -26,7 +26,7 @@ class Ghee
       #
       module Issues
 
-        # API labels module handles all of the Github Issues 
+        # API labels module handles all of the Github Issues
         # API endpoints
         #
         module Labels
@@ -63,7 +63,7 @@ class Ghee
           end
         end
 
-        # API Comments module handles all of the Github Issues 
+        # API Comments module handles all of the Github Issues
         # API endpoints
         #
         module Comments
@@ -106,7 +106,7 @@ class Ghee
             response.body
           end
 
-          # Returns issue comments for an issue or all of the comments 
+          # Returns issue comments for an issue or all of the comments
           # for a repo
           def comments(id=nil)
             prefix = id ? "#{path_prefix}/comments/#{id}" : "#{path_prefix}/comments"
